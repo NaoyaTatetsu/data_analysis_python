@@ -1,0 +1,2 @@
+# data_analysis_python
+pythonを使ってのデータ分析や画像認識
