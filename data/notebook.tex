@@ -1,0 +1,2500 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{dsprog1\_note04\_stu}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    
+
+    \begin{verbatim}
+<h3>データサイエンティストの実際の姿</h3>
+戦略コンサルタント<br>
+組織の意思決定を行うリーダーの参謀<br>
+\end{verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{実践データ分析　ケース1
+比較的きれいなデータの扱い}\label{ux5b9fux8df5ux30c7ux30fcux30bfux5206ux6790ux30b1ux30fcux30b91-ux6bd4ux8f03ux7684ux304dux308cux3044ux306aux30c7ux30fcux30bfux306eux6271ux3044}
+
+\subsubsection{ECサイトの売上げデータ}\label{ecux30b5ux30a4ux30c8ux306eux58f2ux4e0aux3052ux30c7ux30fcux30bf}
+
+よくある依頼事項 -
+弊社の顧客データを使って、売上げを上げる施策を考えてほしい
+
+データ分析における問題点 -
+現場の営業部員に話を聞いても「どこにデータがあるのか分からない」 -
+店舗によって、また担当者によって、データのフォーマットもバラバラ -
+担当者に聞かないと、データのフォーマットの意味を理解できない -
+データの管理部署が複数に分かれており、一元管理が全くなされていない
+
+\texttt{情報がどこにあるのか、どんな情報があるのかを一つ一つヒアリングしていくことによって、はじめて必要な情報が手に入る}
+
+さらなる問題点 -
+「データ分析を行う必要があるのか」と非協力的な社員も少なくない
+
+\texttt{「データ分析による恩恵の理解」や「必要なデータの提出」など、ネゴシエーターとしての能力も試されている}
+
+    \subsection{顧客から入手したデータ一覧}\label{ux9867ux5ba2ux304bux3089ux5165ux624bux3057ux305fux30c7ux30fcux30bfux4e00ux89a7}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+No. & ファイル名 & 概要 & 主軸\tabularnewline
+\midrule
+\endhead
+1 & customer\_master.csv & 顧客データ。氏名、性別、年齢など
+&\tabularnewline
+2 & item\_master.csv & 取り扱っている商品データ。商品名、価格など
+&\tabularnewline
+3-1 & transaction\_1.csv &
+購入履歴データ。いつ、どの顧客がいくら購入したか &\tabularnewline
+3-2 & transaction\_2.csv & 3-1の続き。システムの都合上、分割されている
+&\tabularnewline
+4-1 & transaction\_detail1.csv &
+購入履歴の詳細データ。具体的に、どの商品をいくつ購入したか &
+　〇　\tabularnewline
+4-2 & transaction\_detail2.csv & 4-1の続き　　　 & 　〇　\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}データフレームの表示数を設定する}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{c+c1}{\PYZsh{}すべての行を表示する}
+        \PY{c+c1}{\PYZsh{}pd.set\PYZus{}option(\PYZsq{}display.max\PYZus{}rows\PYZsq{}, None)}
+        
+        \PY{c+c1}{\PYZsh{}すべての行を表示する}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{ステップ1　各データ
+No.1〜No.6の確認（ファイルの読み込み）}\label{ux30b9ux30c6ux30c3ux30d71ux5404ux30c7ux30fcux30bf-no.1no.6ux306eux78baux8a8dux30d5ux30a1ux30a4ux30ebux306eux8aadux307fux8fbcux307f}
+
+    \paragraph{No.1
+顧客データ（customer\_master.csv)の確認}\label{no.1-ux9867ux5ba2ux30c7ux30fcux30bfcustomer_master.csvux306eux78baux8a8d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{customer\PYZus{}master} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}master.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UTF\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{customer\PYZus{}master}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}      customer\_id customer\_name    registration\_date customer\_name\_kana  \textbackslash{}
+        0       IK152942        平田 裕次郎  2019-01-01 00:25:33          ひらた ゆうじろう   
+        1       TS808488         田村 詩織  2019-01-01 01:13:45            たむら しおり   
+        2       AS834628         久野 由樹  2019-01-01 02:00:14             ひさの ゆき   
+        3       AS345469          鶴岡 薫  2019-01-01 04:48:22           つるおか かおる   
+        {\ldots}          {\ldots}           {\ldots}                  {\ldots}                {\ldots}   
+        4996    HD758694        中原 まひる  2019-07-31 19:09:26           なかはら まひる   
+        4997    PL538517         田端 由宇  2019-07-31 19:30:05             たばた ゆう   
+        4998    OA955088         瀬戸内 光  2019-07-31 22:32:08           せとうち ひかる   
+        4999    HI349563         堀井 寛治  2019-07-31 22:49:49            ほりい かんじ   
+        
+                                    email gender  age       birth pref  
+        0     hirata\_yuujirou@example.com      M   29   1990/6/10  石川県  
+        1       tamura\_shiori@example.com      F   33   1986/5/20  東京都  
+        2         hisano\_yuki@example.com      F   63    1956/1/2  茨城県  
+        3      tsuruoka\_kaoru@example.com      M   74   1945/3/25  東京都  
+        {\ldots}                           {\ldots}    {\ldots}  {\ldots}         {\ldots}  {\ldots}  
+        4996  nakahara\_mahiru@example.com      F   27  1991/11/13  茨城県  
+        4997      tabata\_yuu1@example.com      F   73  1945/12/28  愛知県  
+        4998  setouchi\_hikaru@example.com      F   75    1944/4/9  宮城県  
+        4999      horii\_kanji@example.com      M   21    1998/2/6  広島県  
+        
+        [5000 rows x 9 columns]
+\end{Verbatim}
+            
+    \paragraph{上記の結果より、顧客データ（customer\_master.csv）は5000行x9列のデータ}\label{ux4e0aux8a18ux306eux7d50ux679cux3088ux308aux9867ux5ba2ux30c7ux30fcux30bfcustomer_master.csvux306f5000ux884cx9ux5217ux306eux30c7ux30fcux30bf}
+
+    \paragraph{No.2
+商品データ（item\_\_master.csv)の確認}\label{no.2-ux5546ux54c1ux30c7ux30fcux30bfitem__master.csvux306eux78baux8a8d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{item\PYZus{}master} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}master.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UTF\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{item\PYZus{}master}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}   item\_id item\_name  item\_price
+        0    S001      PC-A       50000
+        1    S002      PC-B       85000
+        2    S003      PC-C      120000
+        3    S004      PC-D      180000
+        4    S005      PC-E      210000
+\end{Verbatim}
+            
+    \paragraph{商品データ(item\_master.csv）は5行x3列のデータ}\label{ux5546ux54c1ux30c7ux30fcux30bfitem_master.csvux306f5ux884cx3ux5217ux306eux30c7ux30fcux30bf}
+
+    \paragraph{No.3-1
+購入履歴データ1（transaction\_1.csv)の確認}\label{no.3-1-ux8cfcux5165ux5c65ux6b74ux30c7ux30fcux30bf1transaction_1.csvux306eux78baux8a8d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{transaction\PYZus{}1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transaction\PYZus{}1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UTF\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{transaction\PYZus{}1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}      transaction\_id   price         payment\_date customer\_id
+        0       T0000000113  210000  2019-02-01 01:36:57    PL563502
+        1       T0000000114   50000  2019-02-01 01:37:23    HD678019
+        2       T0000000115  120000  2019-02-01 02:34:19    HD298120
+        3       T0000000116  210000  2019-02-01 02:47:23    IK452215
+        {\ldots}             {\ldots}     {\ldots}                  {\ldots}         {\ldots}
+        4996    T0000005109  150000  2019-06-15 03:36:16    HI215420
+        4997    T0000005110   50000  2019-06-15 03:44:06    IK880102
+        4998    T0000005111  210000  2019-06-15 04:14:06    IK074758
+        4999    T0000005112   50000  2019-06-15 04:42:38    HD444151
+        
+        [5000 rows x 4 columns]
+\end{Verbatim}
+            
+    \paragraph{購入履歴データ(transaction\_1.csv）は5000行x4列のデータ}\label{ux8cfcux5165ux5c65ux6b74ux30c7ux30fcux30bftransaction_1.csvux306f5000ux884cx4ux5217ux306eux30c7ux30fcux30bf}
+
+    \paragraph{No.3-2
+購入履歴データ2（transaction\_2.csv)の確認}\label{no.3-2-ux8cfcux5165ux5c65ux6b74ux30c7ux30fcux30bf2transaction_2.csvux306eux78baux8a8d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{transaction\PYZus{}2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transaction\PYZus{}2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UTF\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{transaction\PYZus{}2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}      transaction\_id   price         payment\_date customer\_id
+        0       T0000005113  295000  2019-06-15 07:20:27    TS169261
+        1       T0000005114   50000  2019-06-15 07:35:47    HI599892
+        2       T0000005115   85000  2019-06-15 07:56:36    HI421757
+        3       T0000005116   50000  2019-06-15 08:40:55    OA386378
+        {\ldots}             {\ldots}     {\ldots}                  {\ldots}         {\ldots}
+        1782    T0000006895   85000  2019-07-31 21:52:48    AS339451
+        1783    T0000006896  100000  2019-07-31 23:35:25    OA027325
+        1784    T0000006897   85000  2019-07-31 23:39:35    TS624738
+        1785    T0000006898   85000  2019-07-31 23:41:38    AS834214
+        
+        [1786 rows x 4 columns]
+\end{Verbatim}
+            
+    \paragraph{購入履歴データ2(transaction\_2.csv）は1786行x4列のデータ}\label{ux8cfcux5165ux5c65ux6b74ux30c7ux30fcux30bf2transaction_2.csvux306f1786ux884cx4ux5217ux306eux30c7ux30fcux30bf}
+
+    \paragraph{No.4-1
+購入履歴の詳細データ1（transaction\_detail\_1.csv)の確認}\label{no.4-1-ux8cfcux5165ux5c65ux6b74ux306eux8a73ux7d30ux30c7ux30fcux30bf1transaction_detail_1.csvux306eux78baux8a8d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{transaction\PYZus{}detail\PYZus{}1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transaction\PYZus{}detail\PYZus{}1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UTF\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{transaction\PYZus{}detail\PYZus{}1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}       detail\_id transaction\_id item\_id  quantity
+        0             0    T0000000113    S005         1
+        1             1    T0000000114    S001         1
+        2             2    T0000000115    S003         1
+        3             3    T0000000116    S005         1
+        {\ldots}         {\ldots}            {\ldots}     {\ldots}       {\ldots}
+        4996       4996    T0000004866    S001         3
+        4997       4997    T0000004867    S001         3
+        4998       4998    T0000004868    S005         1
+        4999       4999    T0000004869    S003         1
+        
+        [5000 rows x 4 columns]
+\end{Verbatim}
+            
+    \paragraph{購入履歴の詳細データ1(transaction\_detail\_1.csv）は5000行x4列のデータ}\label{ux8cfcux5165ux5c65ux6b74ux306eux8a73ux7d30ux30c7ux30fcux30bf1transaction_detail_1.csvux306f5000ux884cx4ux5217ux306eux30c7ux30fcux30bf}
+
+    \paragraph{No.4-2
+購入履歴の詳細データ2（transaction\_detail\_2.csv)の確認}\label{no.4-2-ux8cfcux5165ux5c65ux6b74ux306eux8a73ux7d30ux30c7ux30fcux30bf2transaction_detail_2.csvux306eux78baux8a8d}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{transaction\PYZus{}detail\PYZus{}2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transaction\PYZus{}detail\PYZus{}2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UTF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{transaction\PYZus{}detail\PYZus{}2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}       detail\_id transaction\_id item\_id  quantity
+        0          5000    T0000004870    S002         3
+        1          5001    T0000004871    S003         1
+        2          5002    T0000004872    S001         2
+        3          5003    T0000004873    S004         1
+        {\ldots}         {\ldots}            {\ldots}     {\ldots}       {\ldots}
+        2140       7140    T0000006895    S002         1
+        2141       7141    T0000006896    S001         2
+        2142       7142    T0000006897    S002         1
+        2143       7143    T0000006898    S002         1
+        
+        [2144 rows x 4 columns]
+\end{Verbatim}
+            
+    \paragraph{購入履歴の詳細データ2(transaction\_detail\_2.csv）は2144行x4列のデータ}\label{ux8cfcux5165ux5c65ux6b74ux306eux8a73ux7d30ux30c7ux30fcux30bf2transaction_detail_2.csvux306f2144ux884cx4ux5217ux306eux30c7ux30fcux30bf}
+
+    \begin{quote}
+以上のように、まずはデータの全体像を把握することが重要 -
+主軸を決め、それに合わせて分析しやすいデータを作成する -
+なるべくデータの粒度が細かいデータに合わせてデータを作成する -
+ECサイトの売上げデータは重要な要素 -
+売上げ関連の中で最も粒度の細かいデータは「購入明細の詳細データ＝transaction\_detail\_1とtransaction\_detail\_2」である
+- これを主軸としてデータを作成する
+\end{quote}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{ステップ2
+購入明細の詳細データ（transaction\_detail1と2）を主軸にデータを加工する}\label{ux30b9ux30c6ux30c3ux30d72-ux8cfcux5165ux660eux7d30ux306eux8a73ux7d30ux30c7ux30fcux30bftransaction_detail1ux30682ux3092ux4e3bux8ef8ux306bux30c7ux30fcux30bfux3092ux52a0ux5de5ux3059ux308b}
+
+\begin{itemize}
+\tightlist
+\item
+  2-1：2つに分かれた購入履歴データを1つに統合する
+\item
+  transaction\_1とtransaction\_2を縦に結合する　→　transaction
+\item
+  縦の結合＝「ユニオン」・・・行を追加する
+\item
+  2−2：2つに分かれた購入履歴の詳細データを1つに統合する
+\item
+  transaction\_detail\_1とtransaction\_detail\_2を縦に結合する（ユニオン）
+  → transaction\_detail
+\item
+  2-3：transaction\_detailを主軸として、transaction、item\_master、customer\_masterを横に結合する
+\item
+  横の結合＝「ジョイン」・・・列を追加する
+\end{itemize}
+
+    \textbf{2-1：2つに分かれた購入履歴データを1つに統合する}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{transaction} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{transaction\PYZus{}1}\PY{p}{,} \PY{n}{transaction\PYZus{}2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{transaction}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}      transaction\_id   price         payment\_date customer\_id
+        0       T0000000113  210000  2019-02-01 01:36:57    PL563502
+        1       T0000000114   50000  2019-02-01 01:37:23    HD678019
+        2       T0000000115  120000  2019-02-01 02:34:19    HD298120
+        3       T0000000116  210000  2019-02-01 02:47:23    IK452215
+        {\ldots}             {\ldots}     {\ldots}                  {\ldots}         {\ldots}
+        1782    T0000006895   85000  2019-07-31 21:52:48    AS339451
+        1783    T0000006896  100000  2019-07-31 23:35:25    OA027325
+        1784    T0000006897   85000  2019-07-31 23:39:35    TS624738
+        1785    T0000006898   85000  2019-07-31 23:41:38    AS834214
+        
+        [6786 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{transaction} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{transaction\PYZus{}1}\PY{p}{,} \PY{n}{transaction\PYZus{}2}\PY{p}{]}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{transaction}
+        \PY{c+c1}{\PYZsh{}上記の例では、元のデータフレームの行番号のまま追加されたが、ignore\PYZus{}index=True とすることで、通し番号を割り当てられる}
+        \PY{c+c1}{\PYZsh{}ignore\PYZus{}index=Falseやignore\PYZus{}indexに関する記述がない場合は、もとの行番号のまま結合される}
+        \PY{n}{transaction} \PY{c+c1}{\PYZsh{}.loc[4999:5010] \PYZsh{}つなぎ目を確認する}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}      transaction\_id   price         payment\_date customer\_id
+        0       T0000000113  210000  2019-02-01 01:36:57    PL563502
+        1       T0000000114   50000  2019-02-01 01:37:23    HD678019
+        2       T0000000115  120000  2019-02-01 02:34:19    HD298120
+        3       T0000000116  210000  2019-02-01 02:47:23    IK452215
+        {\ldots}             {\ldots}     {\ldots}                  {\ldots}         {\ldots}
+        6782    T0000006895   85000  2019-07-31 21:52:48    AS339451
+        6783    T0000006896  100000  2019-07-31 23:35:25    OA027325
+        6784    T0000006897   85000  2019-07-31 23:39:35    TS624738
+        6785    T0000006898   85000  2019-07-31 23:41:38    AS834214
+        
+        [6786 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}データ件数を出力し、正しく結合されたことを確認する}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction\PYZus{}1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction\PYZus{}2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5000
+1786
+6786
+
+    \end{Verbatim}
+
+    \textbf{2-2:2つに分かれた購入履歴の詳細データを結合する}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{transaction\PYZus{}detail} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{transaction\PYZus{}detail\PYZus{}1}\PY{p}{,} \PY{n}{transaction\PYZus{}detail\PYZus{}2}\PY{p}{]}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{transaction\PYZus{}detail}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}       detail\_id transaction\_id item\_id  quantity
+         0             0    T0000000113    S005         1
+         1             1    T0000000114    S001         1
+         2             2    T0000000115    S003         1
+         3             3    T0000000116    S005         1
+         {\ldots}         {\ldots}            {\ldots}     {\ldots}       {\ldots}
+         7140       7140    T0000006895    S002         1
+         7141       7141    T0000006896    S001         2
+         7142       7142    T0000006897    S002         1
+         7143       7143    T0000006898    S002         1
+         
+         [7144 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}データ件数を出力し、結合されたことを確認する}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction\PYZus{}detail\PYZus{}1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction\PYZus{}detail\PYZus{}2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction\PYZus{}detail}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5000
+2144
+7144
+
+    \end{Verbatim}
+
+    \textbf{2-3:transaction\_detailを主軸として、transaction、item\_master、customer\_masterを横に結合する}
+-
+主軸となるデータの中でどの列をキーにして他のデータをジョインするかを考える
+- 各データの列を出力し比較する -
+主軸データに足りないデータ列は？共通するデータ列は？
+
+\begin{longtable}[]{@{}llllllllll@{}}
+\toprule
+\begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+data\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col1\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col2\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col3\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col4\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col5\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col6\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col7\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col8\strut
+\end{minipage} & \begin{minipage}[b]{0.03\columnwidth}\raggedright\strut
+col9\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+transaction\_detal\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+detail\_id\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\textbf{transaction\_id}\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\textbf{item\_id}\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+quantity\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+item\_master\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\textbf{item\_id}\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+item\_name\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+item\_price\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+transaction\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\textbf{transaction\_id}\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+price\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+payment\_date\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\textbf{customer\_id}\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+customer\_master\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+\textbf{customer\_id}\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+customer\_name\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+registration\_date\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+customer\_name\_kana\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+email\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+gender\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+age\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+birth\strut
+\end{minipage} & \begin{minipage}[t]{0.03\columnwidth}\raggedright\strut
+pref\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}transaction\PYZus{}detail、transaction、item\PYZus{}master、customer\PYZus{}masterの列を表示して確認する}
+         \PY{c+c1}{\PYZsh{}transaction\PYZus{}detail}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction\PYZus{}detail}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}transaction}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}item\PYZus{}master}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{item\PYZus{}master}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}customer\PYZus{}master}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{customer\PYZus{}master}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+4
+3
+9
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}transaction\PYZus{}detailの「item\PYZus{}id」を主軸としてitem\PYZus{}masterを結合する}
+         \PY{n}{join\PYZus{}data1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}
+             \PY{n}{transaction\PYZus{}detail}\PY{p}{,} \PY{n}{item\PYZus{}master}\PY{p}{,} \PY{c+c1}{\PYZsh{}結合したいデータ}
+             \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{}主軸のキー}
+             \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}左側の列に合わせる、今回はtransaction\PYZus{}detail}
+         \PY{p}{)}
+         \PY{n}{join\PYZus{}data1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}       detail\_id transaction\_id item\_id  quantity item\_name  item\_price
+         0             0    T0000000113    S005         1      PC-E      210000
+         1             1    T0000000114    S001         1      PC-A       50000
+         2             2    T0000000115    S003         1      PC-C      120000
+         3             3    T0000000116    S005         1      PC-E      210000
+         {\ldots}         {\ldots}            {\ldots}     {\ldots}       {\ldots}       {\ldots}         {\ldots}
+         7140       7140    T0000006895    S002         1      PC-B       85000
+         7141       7141    T0000006896    S001         2      PC-A       50000
+         7142       7142    T0000006897    S002         1      PC-B       85000
+         7143       7143    T0000006898    S002         1      PC-B       85000
+         
+         [7144 rows x 6 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}結合後に件数を確認する}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction\PYZus{}detail}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{item\PYZus{}master}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{join\PYZus{}data1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+7144
+5
+7144
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}さきほど結合して作成したjoin\PYZus{}data1の「transaction\PYZus{}id」を主軸にtransactionを結合する}
+         \PY{n}{join\PYZus{}data2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{join\PYZus{}data1}\PY{p}{,} \PY{n}{transaction}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{transaction\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{join\PYZus{}data2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}       detail\_id transaction\_id item\_id  quantity item\_name  item\_price  \textbackslash{}
+         0             0    T0000000113    S005         1      PC-E      210000   
+         1             1    T0000000114    S001         1      PC-A       50000   
+         2             2    T0000000115    S003         1      PC-C      120000   
+         3             3    T0000000116    S005         1      PC-E      210000   
+         {\ldots}         {\ldots}            {\ldots}     {\ldots}       {\ldots}       {\ldots}         {\ldots}   
+         7140       7140    T0000006895    S002         1      PC-B       85000   
+         7141       7141    T0000006896    S001         2      PC-A       50000   
+         7142       7142    T0000006897    S002         1      PC-B       85000   
+         7143       7143    T0000006898    S002         1      PC-B       85000   
+         
+                price         payment\_date customer\_id  
+         0     210000  2019-02-01 01:36:57    PL563502  
+         1      50000  2019-02-01 01:37:23    HD678019  
+         2     120000  2019-02-01 02:34:19    HD298120  
+         3     210000  2019-02-01 02:47:23    IK452215  
+         {\ldots}      {\ldots}                  {\ldots}         {\ldots}  
+         7140   85000  2019-07-31 21:52:48    AS339451  
+         7141  100000  2019-07-31 23:35:25    OA027325  
+         7142   85000  2019-07-31 23:39:35    TS624738  
+         7143   85000  2019-07-31 23:41:38    AS834214  
+         
+         [7144 rows x 9 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}結合後に件数を確認する}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{transaction}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{join\PYZus{}data2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6786
+7144
+
+    \end{Verbatim}
+
+    \subsubsection{件数が増えている（要注意）}\label{ux4ef6ux6570ux304cux5897ux3048ux3066ux3044ux308bux8981ux6ce8ux610f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}さきほど結合して作成したjoin\PYZus{}data2の「customer\PYZus{}id」を主軸にcustomer\PYZus{}masterを結合する}
+         \PY{n}{join\PYZus{}data3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{join\PYZus{}data2}\PY{p}{,} \PY{n}{customer\PYZus{}master}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{join\PYZus{}data3}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}       detail\_id transaction\_id item\_id  quantity item\_name  item\_price  \textbackslash{}
+         0             0    T0000000113    S005         1      PC-E      210000   
+         1             1    T0000000114    S001         1      PC-A       50000   
+         2             2    T0000000115    S003         1      PC-C      120000   
+         3             3    T0000000116    S005         1      PC-E      210000   
+         {\ldots}         {\ldots}            {\ldots}     {\ldots}       {\ldots}       {\ldots}         {\ldots}   
+         7140       7140    T0000006895    S002         1      PC-B       85000   
+         7141       7141    T0000006896    S001         2      PC-A       50000   
+         7142       7142    T0000006897    S002         1      PC-B       85000   
+         7143       7143    T0000006898    S002         1      PC-B       85000   
+         
+                price         payment\_date customer\_id customer\_name  \textbackslash{}
+         0     210000  2019-02-01 01:36:57    PL563502         井本 芳正   
+         1      50000  2019-02-01 01:37:23    HD678019         三船 六郎   
+         2     120000  2019-02-01 02:34:19    HD298120         山根 小雁   
+         3     210000  2019-02-01 02:47:23    IK452215         池田 菜摘   
+         {\ldots}      {\ldots}                  {\ldots}         {\ldots}           {\ldots}   
+         7140   85000  2019-07-31 21:52:48    AS339451         相原 みき   
+         7141  100000  2019-07-31 23:35:25    OA027325         松田 早紀   
+         7142   85000  2019-07-31 23:39:35    TS624738         進藤 正敏   
+         7143   85000  2019-07-31 23:41:38    AS834214         田原 結子   
+         
+                 registration\_date customer\_name\_kana                           email  \textbackslash{}
+         0     2019-01-07 14:34:35           いもと よしまさ     imoto\_yoshimasa@example.com   
+         1     2019-01-27 18:00:11           みふね ろくろう      mifune\_rokurou@example.com   
+         2     2019-01-11 08:16:02            やまね こがん        yamane\_kogan@example.com   
+         3     2019-01-10 05:07:38            いけだ なつみ       ikeda\_natsumi@example.com   
+         {\ldots}                   {\ldots}                {\ldots}                             {\ldots}   
+         7140  2019-02-11 19:34:02            あいはら みき         aihara\_miki@example.com   
+         7141  2019-04-17 09:23:50             まつだ さき        matsuda\_saki@example.com   
+         7142  2019-02-20 18:15:56          しんどう まさとし  shinndou\_masatoshi@example.com   
+         7143  2019-04-07 03:20:19            たはら ゆうこ        tahara\_yuuko@example.com   
+         
+              gender  age       birth pref  
+         0         M   30   1989/7/15  熊本県  
+         1         M   73  1945/11/29  京都府  
+         2         M   42   1977/5/17  茨城県  
+         3         F   47   1972/3/17  兵庫県  
+         {\ldots}     {\ldots}  {\ldots}         {\ldots}  {\ldots}  
+         7140      F   74    1945/2/3  北海道  
+         7141      F   40   1979/5/25  福島県  
+         7142      M   56   1963/2/21  東京都  
+         7143      F   74  1944/12/18  愛知県  
+         
+         [7144 rows x 17 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}結合後に件数を確認する}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{customer\PYZus{}master}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{join\PYZus{}data3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5000
+7144
+
+    \end{Verbatim}
+
+    \subsubsection{件数が増えている}\label{ux4ef6ux6570ux304cux5897ux3048ux3066ux3044ux308b}
+
+    データを結合する度に件数の確認を行うこと！！
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{ステップ3
+データ検算を行う}\label{ux30b9ux30c6ux30c3ux30d73-ux30c7ux30fcux30bfux691cux7b97ux3092ux884cux3046}
+
+\begin{itemize}
+\tightlist
+\item
+  データ加工前のtransactionデータにおけるpriceの合計値と、データ加工後のjoin\_data3のpriceの合計値は同じ値になると思う、、、
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{join\PYZus{}data3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{l+m+mi}{200}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}      detail\_id transaction\_id item\_id  quantity item\_name  item\_price   price  \textbackslash{}
+         100        100    T0000000211    S005         1      PC-E      210000  210000   
+         101        101    T0000000212    S004         1      PC-D      180000  180000   
+         102        102    T0000000213    S003         1      PC-C      120000  120000   
+         103        103    T0000000214    S002         1      PC-B       85000   85000   
+         ..         {\ldots}            {\ldots}     {\ldots}       {\ldots}       {\ldots}         {\ldots}     {\ldots}   
+         197        197    T0000000304    S001         1      PC-A       50000   50000   
+         198        198    T0000000305    S005         1      PC-E      210000  210000   
+         199        199    T0000000306    S002         1      PC-B       85000   85000   
+         200        200    T0000000307    S001         1      PC-A       50000   50000   
+         
+                     payment\_date customer\_id customer\_name    registration\_date  \textbackslash{}
+         100  2019-02-04 02:22:39    HI364290        小松 さやか  2019-01-06 19:46:38   
+         101  2019-02-04 03:23:29    HI253328         窪田 千夏  2019-01-25 04:20:20   
+         102  2019-02-04 05:42:23    HD163236         相原 亮介  2019-02-02 08:16:58   
+         103  2019-02-04 06:21:34    PL792014         木原 勝久  2019-01-29 15:15:46   
+         ..                   {\ldots}         {\ldots}           {\ldots}                  {\ldots}   
+         197  2019-02-06 12:02:00    AS394423        川上 まひる  2019-01-31 13:26:10   
+         198  2019-02-06 12:38:23    OA707923         堀内 六郎  2019-01-10 13:56:13   
+         199  2019-02-06 12:50:04    TS972175         織田 草太  2019-01-07 23:58:34   
+         200  2019-02-06 12:51:08    GD288833          深沢 大  2019-01-15 20:40:37   
+         
+             customer\_name\_kana                         email gender  age      birth  \textbackslash{}
+         100            こまつ さやか    komatsu\_sayaka@example.com      F   54  1964/8/13   
+         101            くぼた ちなつ   kubota\_chinatsu@example.com      F   56  1963/4/20   
+         102         あいはら りょうすけ   aihara\_ryousuke@example.com      M   31  1987/9/29   
+         103           きはら かつひさ  kihara\_katsuhisa@example.com      M   72  1947/4/13   
+         ..                 {\ldots}                           {\ldots}    {\ldots}  {\ldots}        {\ldots}   
+         197           かわかみ まひる   kawakami\_mahiru@example.com      F   69  1950/6/28   
+         198          ほりうち ろくろう  horiuchi\_rokurou@example.com      M   29  1989/8/18   
+         199             おだ そうた         oda\_souta@example.com      M   72  1946/9/11   
+         200           ふかざわ まさる   fukazawa\_masaru@example.com      M   30  1989/7/10   
+         
+             pref  
+         100  栃木県  
+         101  静岡県  
+         102  滋賀県  
+         103  埼玉県  
+         ..   {\ldots}  
+         197  福島県  
+         198  大分県  
+         199  島根県  
+         200  愛知県  
+         
+         [101 rows x 17 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{join\PYZus{}data3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{transaction}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{(}\PY{n}{join\PYZus{}data3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{join\PYZus{}data3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}join\PYZus{}data3のitem\PYZus{}price x quantity}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1074750000
+971135000
+971135000
+
+    \end{Verbatim}
+
+    \subsubsection{計算が合わない！！！}\label{ux8a08ux7b97ux304cux5408ux308fux306aux3044}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}price列を削除する/drop}
+         \PY{n}{join\PYZus{}data\PYZus{}comp} \PY{o}{=} \PY{n}{join\PYZus{}data3}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}    detail\_id transaction\_id item\_id  quantity item\_name  item\_price  \textbackslash{}
+         0          0    T0000000113    S005         1      PC-E      210000   
+         1          1    T0000000114    S001         1      PC-A       50000   
+         2          2    T0000000115    S003         1      PC-C      120000   
+         3          3    T0000000116    S005         1      PC-E      210000   
+         4          4    T0000000117    S002         2      PC-B       85000   
+         
+                   payment\_date customer\_id customer\_name    registration\_date  \textbackslash{}
+         0  2019-02-01 01:36:57    PL563502         井本 芳正  2019-01-07 14:34:35   
+         1  2019-02-01 01:37:23    HD678019         三船 六郎  2019-01-27 18:00:11   
+         2  2019-02-01 02:34:19    HD298120         山根 小雁  2019-01-11 08:16:02   
+         3  2019-02-01 02:47:23    IK452215         池田 菜摘  2019-01-10 05:07:38   
+         4  2019-02-01 04:33:46    PL542865         栗田 憲一  2019-01-25 06:46:05   
+         
+           customer\_name\_kana                        email gender  age       birth pref  
+         0           いもと よしまさ  imoto\_yoshimasa@example.com      M   30   1989/7/15  熊本県  
+         1           みふね ろくろう   mifune\_rokurou@example.com      M   73  1945/11/29  京都府  
+         2            やまね こがん     yamane\_kogan@example.com      M   42   1977/5/17  茨城県  
+         3            いけだ なつみ    ikeda\_natsumi@example.com      F   47   1972/3/17  兵庫県  
+         4           くりた けんいち   kurita\_kenichi@example.com      M   74  1944/12/17  長崎県  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}item\PYZus{}price x quantityの計算結果をpriceとして列を追加}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{c+c1}{\PYZsh{}データの一部を表示し、ただしく計算されていることを確認}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{p}{[} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{:}\PY{l+m+mi}{30}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}     quantity  item\_price   price
+         10         1       50000   50000
+         11         1      120000  120000
+         12         1      180000  180000
+         13         2       85000  170000
+         ..       {\ldots}         {\ldots}     {\ldots}
+         27         3       50000  150000
+         28         1      210000  210000
+         29         2       50000  100000
+         30         1       85000   85000
+         
+         [21 rows x 3 columns]
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{ステップ4　各種統計量を把握する}\label{ux30b9ux30c6ux30c3ux30d74ux5404ux7a2eux7d71ux8a08ux91cfux3092ux628aux63e1ux3059ux308b}
+
+\begin{itemize}
+\tightlist
+\item
+  データ分析を進めていく上で、まずは2つの数字を知る必要がある。
+\item
+  4-1：欠損値の確認
+\item
+  4−2：全体の数字感をつかむ
+\item
+  4-3：時系列変化をみる
+\item
+  4-4：グラフで可視化する
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}すべての行を表示する}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{4-1：欠損値の確認}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}isnull()を用いると欠損値をTrueとし、sum()でその数をカウント}
+         \PY{c+c1}{\PYZsh{}欠損値の数は0であることが確認できる}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} detail\_id             0
+         transaction\_id        0
+         item\_id               0
+         quantity              0
+         item\_name             0
+         item\_price            0
+         payment\_date          0
+         customer\_id           0
+         customer\_name         0
+         registration\_date     0
+         customer\_name\_kana    0
+         email                 0
+         gender                0
+         age                   0
+         birth                 0
+         pref                  0
+         price                 0
+         dtype: int64
+\end{Verbatim}
+            
+    \textbf{4-2：全体の数字感をつかむ}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}join\PYZus{}data\PYZus{}comp.describe(include=\PYZsq{}all\PYZsq{})}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}priceの平均値(mean)から平均13万円ぐらい購入していることが分かる。最高は42万円}
+         \PY{c+c1}{\PYZsh{}quantityから75％数でも1なので、ほとんどの顧客が商品を1つだけで購入していることが分かる。}
+         \PY{c+c1}{\PYZsh{}ageから顧客が20歳から80歳までの幅広い範囲であることが分かる}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}          detail\_id     quantity     item\_price          age          price
+         count  7144.000000  7144.000000    7144.000000  7144.000000    7144.000000
+         mean   3571.500000     1.199888  121698.628219    50.265677  135937.150056
+         std    2062.439494     0.513647   64571.311830    17.190314   68511.453297
+         min       0.000000     1.000000   50000.000000    20.000000   50000.000000
+         25\%    1785.750000     1.000000   50000.000000    36.000000   85000.000000
+         50\%    3571.500000     1.000000  102500.000000    50.000000  120000.000000
+         75\%    5357.250000     1.000000  187500.000000    65.000000  210000.000000
+         max    7143.000000     4.000000  210000.000000    80.000000  420000.000000
+\end{Verbatim}
+            
+    コラム
+「四分位数（しぶんいすう）」とはデータを小さい順に並び替えたときに、データの数で4等分した時の区切り値。4等分すると3つの区切りの値が得られ、小さいほうから
+「25パーセンタイル」 「50パーセンタイル」 「75パーセンタイル」とよぶ。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}売上合計金額を3桁区切りで分かりやすく表示してみる}
+         \PY{c+c1}{\PYZsh{}join\PYZus{}data\PYZus{}comp[\PYZsq{}price\PYZsq{}].sum()}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}:,d\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)} 
+         \PY{c+c1}{\PYZsh{}\PYZsq{}\PYZob{}:,\PYZcb{}\PYZsq{}で数値が三桁区切りになる}
+         \PY{c+c1}{\PYZsh{}\PYZsq{}\PYZob{}:,d\PYZcb{}\PYZsq{}のdは10進数で出力することを意味してる}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+971,135,000
+
+    \end{Verbatim}
+
+    \textbf{4-3：時系列変化を見る}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{o}{.}\PY{n}{dtypes} \PY{c+c1}{\PYZsh{}dtypesでデータ型を見る}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} detail\_id              int64
+         transaction\_id        object
+         item\_id               object
+         quantity               int64
+         item\_name             object
+         item\_price             int64
+         payment\_date          object
+         customer\_id           object
+         customer\_name         object
+         registration\_date     object
+         customer\_name\_kana    object
+         email                 object
+         gender                object
+         age                    int64
+         birth                 object
+         pref                  object
+         price                  int64
+         dtype: object
+\end{Verbatim}
+            
+    \subsubsection{payment\_dateが日付時刻型になっていないのでこのままでは月別に集計できない}\label{payment_dateux304cux65e5ux4ed8ux6642ux523bux578bux306bux306aux3063ux3066ux3044ux306aux3044ux306eux3067ux3053ux306eux307eux307eux3067ux306fux6708ux5225ux306bux96c6ux8a08ux3067ux304dux306aux3044}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}payment\PYZus{}dateを日付時刻型に変換する}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} detail\_id                      int64
+         transaction\_id                object
+         item\_id                       object
+         quantity                       int64
+         item\_name                     object
+         item\_price                     int64
+         payment\_date          datetime64[ns]
+         customer\_id                   object
+         customer\_name                 object
+         registration\_date             object
+         customer\_name\_kana            object
+         email                         object
+         gender                        object
+         age                            int64
+         birth                         object
+         pref                          object
+         price                          int64
+         dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}payment\PYZus{}dateの表示を2019/01のような表記に変える}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y/}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}payment\PYZus{}dateとpayment\PYZus{}monthの列データに対して先頭部分だけを表示}
+         \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}          payment\_date payment\_month
+         0 2019-02-01 01:36:57       2019/02
+         1 2019-02-01 01:37:23       2019/02
+         2 2019-02-01 02:34:19       2019/02
+         3 2019-02-01 02:47:23       2019/02
+         4 2019-02-01 04:33:46       2019/02
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}月別の売上金額を表示する　＝　groupbyを用いて、payment\PYZus{}month列をsumで集計する}
+         \PY{n}{monthly\PYZus{}sales} \PY{o}{=} \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{monthly\PYZus{}sales}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} payment\_month
+         2019/02    160185000
+         2019/03    160370000
+         2019/04    160510000
+         2019/05    155420000
+         2019/06    164030000
+         2019/07    170620000
+         Name: price, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}月別かつ商品別に売上金額と数量を表示する　}
+         \PY{n}{monthly\PYZus{}sales} \PY{o}{=} \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}
+             \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}
+             \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}groupbyではリスト型で指定することができる}
+         \PY{p}{]}
+         \PY{n}{monthly\PYZus{}sales}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}                             price  quantity
+         payment\_month item\_name                    
+         2019/02       PC-A       24150000       483
+                       PC-B       25245000       297
+                       PC-C       19800000       165
+                       PC-D       31140000       173
+                       PC-E       59850000       285
+         2019/03       PC-A       26000000       520
+                       PC-B       25500000       300
+                       PC-C       19080000       159
+                       PC-D       25740000       143
+                       PC-E       64050000       305
+         2019/04       PC-A       25900000       518
+                       PC-B       23460000       276
+                       PC-C       21960000       183
+                       PC-D       24300000       135
+                       PC-E       64890000       309
+         2019/05       PC-A       24850000       497
+                       PC-B       25330000       298
+                       PC-C       20520000       171
+                       PC-D       25920000       144
+                       PC-E       58800000       280
+         2019/06       PC-A       26000000       520
+                       PC-B       23970000       282
+                       PC-C       21840000       182
+                       PC-D       28800000       160
+                       PC-E       63420000       302
+         2019/07       PC-A       25250000       505
+                       PC-B       28220000       332
+                       PC-C       19440000       162
+                       PC-D       26100000       145
+                       PC-E       71610000       341
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}pivot\PYZus{}tableを使用して行に商品別、列に月別の売上金額と数量を表示する}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}
+             \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{,}
+             \PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{values} \PY{o}{=} \PY{p}{[}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{]}\PY{p}{,}
+             \PY{n}{aggfunc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}集計方法を指定する}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}                   price                                                    \textbackslash{}
+         payment\_month   2019/02   2019/03   2019/04   2019/05   2019/06   2019/07   
+         item\_name                                                                   
+         PC-A           24150000  26000000  25900000  24850000  26000000  25250000   
+         PC-B           25245000  25500000  23460000  25330000  23970000  28220000   
+         PC-C           19800000  19080000  21960000  20520000  21840000  19440000   
+         PC-D           31140000  25740000  24300000  25920000  28800000  26100000   
+         PC-E           59850000  64050000  64890000  58800000  63420000  71610000   
+         
+                       quantity                                          
+         payment\_month  2019/02 2019/03 2019/04 2019/05 2019/06 2019/07  
+         item\_name                                                       
+         PC-A               483     520     518     497     520     505  
+         PC-B               297     300     276     298     282     332  
+         PC-C               165     159     183     171     182     162  
+         PC-D               173     143     135     144     160     145  
+         PC-E               285     305     309     280     302     341  
+\end{Verbatim}
+            
+    \subsubsection{数量的には最も安い価格のPC-Aが多いが、PC-Eの売上げが全体の売上げに大きな影響を与えることが分かる}\label{ux6570ux91cfux7684ux306bux306fux6700ux3082ux5b89ux3044ux4fa1ux683cux306epc-aux304cux591aux3044ux304cpc-eux306eux58f2ux4e0aux3052ux304cux5168ux4f53ux306eux58f2ux4e0aux3052ux306bux5927ux304dux306aux5f71ux97ffux3092ux4e0eux3048ux308bux3053ux3068ux304cux5206ux304bux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}商品別の売上推移を可視化（折れ線グラフ）するための準備}
+         \PY{n}{graph\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}
+             \PY{n}{join\PYZus{}data\PYZus{}comp}\PY{p}{,}
+             \PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{payment\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{aggfunc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}集計方法を指定する}
+         \PY{p}{)}
+         \PY{n}{graph\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} item\_name          PC-A      PC-B      PC-C      PC-D      PC-E
+         payment\_month                                                  
+         2019/02        24150000  25245000  19800000  31140000  59850000
+         2019/03        26000000  25500000  19080000  25740000  64050000
+         2019/04        25900000  23460000  21960000  24300000  64890000
+         2019/05        24850000  25330000  20520000  25920000  58800000
+         2019/06        26000000  23970000  21840000  28800000  63420000
+         2019/07        25250000  28220000  19440000  26100000  71610000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}商品別の売上げの時系列変化を折れ線グラフで表示}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{graph\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{,} \PY{n}{graph\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{graph\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{,} \PY{n}{graph\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{graph\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{,} \PY{n}{graph\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{graph\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{,} \PY{n}{graph\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{graph\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{,} \PY{n}{graph\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC\PYZhy{}E}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{一目でPC-Eが売上げを牽引している機種であることや売上げの傾向を掴むことができる}\label{ux4e00ux76eeux3067pc-eux304cux58f2ux4e0aux3052ux3092ux727dux5f15ux3057ux3066ux3044ux308bux6a5fux7a2eux3067ux3042ux308bux3053ux3068ux3084ux58f2ux4e0aux3052ux306eux50beux5411ux3092ux63b4ux3080ux3053ux3068ux304cux3067ux304dux308b}
+
+\subsubsection{このような可視化を行いながら、分析を進め、現場の人に説明をしていくことが重要}\label{ux3053ux306eux3088ux3046ux306aux53efux8996ux5316ux3092ux884cux3044ux306aux304cux3089ux5206ux6790ux3092ux9032ux3081ux73feux5834ux306eux4ebaux306bux8aacux660eux3092ux3057ux3066ux3044ux304fux3053ux3068ux304cux91cdux8981}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{実践データ分析　ケース2}\label{ux5b9fux8df5ux30c7ux30fcux30bfux5206ux6790ux30b1ux30fcux30b92}
+
+\subsection{汚いデータの扱い}\label{ux6c5aux3044ux30c7ux30fcux30bfux306eux6271ux3044}
+
+\subsubsection{ECサイトの売上げデータ}\label{ecux30b5ux30a4ux30c8ux306eux58f2ux4e0aux3052ux30c7ux30fcux30bf}
+
+ある小売店の売上履歴と顧客台帳データを用いて、データ分析の素地となる「データの加工」を習得する。実際の現場データは手入力のExcel等、決して綺麗なデータではないことが多い。データの揺れや整合性の担保など、汚いデータを取り扱うデータ加工を主体に進める。
+- ステップ1：データの読込 - ステップ2：データの揺れをみる -
+ステップ3：商品名の揺れを補正する - ステップ4：欠損値を補完する -
+ステップ5：顧客名の揺れも補正する - ステップ6：日付の揺れも補正する -
+ステップ7：顧客名を主軸に2つのデータを結合（ジョイン）する -
+ステップ8：クレンジングしたデータを俯瞰する - ステップ9：データ集計する
+
+    \paragraph{ステップ1
+データの読込}\label{ux30b9ux30c6ux30c3ux30d71-ux30c7ux30fcux30bfux306eux8aadux8fbc}
+
+\begin{itemize}
+\tightlist
+\item
+  売上げデータ（sales.csv）
+\item
+  顧客情報（customer\_info.xlsx）
+\end{itemize}
+
+    \subsubsection{売上げデータ(sales.csv）を読み込む}\label{ux58f2ux4e0aux3052ux30c7ux30fcux30bfsales.csvux3092ux8aadux307fux8fbcux3080}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{n}{sales\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sales.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}          purchase\_date item\_name  item\_price customer\_name
+         0  2019-06-13 18:02:34       商品A       100.0         深井菜々美
+         1  2019-07-13 13:05:29     商 品 S         NaN          浅田賢二
+         2  2019-05-11 19:42:07     商 品 a         NaN          南部慶二
+         3  2019-02-12 23:40:45       商品Z      2600.0          麻生莉緒
+         4  2019-04-22 03:09:35       商品a         NaN          平田鉄二
+\end{Verbatim}
+            
+    \subsubsection{顧客情報(customer\_info.xlsx）を読み込む}\label{ux9867ux5ba2ux60c5ux5831customer_info.xlsxux3092ux8aadux307fux8fbcux3080}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{customer\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}info.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}       顧客名        かな  地域                     メールアドレス         登録日
+         0   須賀ひとみ    すが ひとみ  H市     suga\_hitomi@example.com  2018/01/04
+         1  岡田　 敏也   おかだ としや  E市   okada\_toshiya@example.com       42782
+         2    芳賀 希    はが のぞみ  A市     haga\_nozomi@example.com  2018/01/07
+         3   荻野  愛    おぎの あい  F市        ogino\_ai@example.com       42872
+         4   栗田 憲一  くりた けんいち  E市  kurita\_kenichi@example.com       43127
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{ステップ2
+データの揺れをみる}\label{ux30b9ux30c6ux30c3ux30d72-ux30c7ux30fcux30bfux306eux63faux308cux3092ux307fux308b}
+
+    \subsubsection{各種データ内に存在するデータの揺れと欠損値の有無を確認する}\label{ux5404ux7a2eux30c7ux30fcux30bfux5185ux306bux5b58ux5728ux3059ux308bux30c7ux30fcux30bfux306eux63faux308cux3068ux6b20ux640dux5024ux306eux6709ux7121ux3092ux78baux8a8dux3059ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}rows}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}pd.set\PYZus{}option(\PYZsq{}display.max\PYZus{}rows\PYZsq{}, None)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}sales\PYZus{}data.head()}
+         \PY{n}{sales\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}             purchase\_date item\_name  item\_price customer\_name
+         0     2019-06-13 18:02:34       商品A       100.0         深井菜々美
+         1     2019-07-13 13:05:29     商 品 S         NaN          浅田賢二
+         {\ldots}                   {\ldots}       {\ldots}         {\ldots}           {\ldots}
+         2997  2019-07-14 12:56:49       商品H         NaN          芦田博之
+         2998  2019-07-21 00:31:36       商品D       400.0          石田郁恵
+         
+         [2999 rows x 4 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}customer\PYZus{}data.head()}
+         \PY{n}{customer\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}         顧客名           かな  地域                         メールアドレス         登録日
+         0     須賀ひとみ       すが ひとみ  H市         suga\_hitomi@example.com  2018/01/04
+         1    岡田　 敏也      おかだ としや  E市       okada\_toshiya@example.com       42782
+         ..      {\ldots}          {\ldots}  ..                             {\ldots}         {\ldots}
+         198  大西 隆之介  おおにし りゅうのすけ  H市  oonishi\_ryuunosuke@example.com  2019/04/19
+         199   福井 美希       ふくい みき  D市         fukui\_miki1@example.com  2019/04/23
+         
+         [200 rows x 5 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} 0      商品A
+         1    商 品 S
+         2    商 品 a
+         3      商品Z
+         4      商品a
+         Name: item\_name, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 0     100.0
+         1       NaN
+         2       NaN
+         3    2600.0
+         4       NaN
+         Name: item\_price, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} 0    2018/01/04
+         1         42782
+         2    2018/01/07
+         3         42872
+         4         43127
+         Name: 登録日, dtype: object
+\end{Verbatim}
+            
+    \subsubsection{データに揺れがあるまま集計してみる}\label{ux30c7ux30fcux30bfux306bux63faux308cux304cux3042ux308bux307eux307eux96c6ux8a08ux3057ux3066ux307fux308b}
+
+商品Sと商品s
+など、本来同じ商品が別の商品として集計されている。データの揺れがあるため、本来26個の商品が99個に増えてしまっている。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}データタイム型に変換}
+         
+         \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y/}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{res} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}
+             \PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{aggfunc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}value} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}値を埋める、今回は0}
+         \PY{p}{)}
+         \PY{n}{res}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} item\_name         商品W   商 品 n   商品E   商品M   商品P   商品S   商品W   商品X  商  品O  \textbackslash{}
+         purchase\_month                                                             
+         2019/01             0       1     0     0     0     0     0     0      0   
+         2019/02             0       0     0     0     0     0     0     1      0   
+         {\ldots}               {\ldots}     {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}    {\ldots}   
+         2019/06             0       0     0     0     0     0     1     0      0   
+         2019/07             0       0     0     0     0     0     0     0      1   
+         
+         item\_name       商  品Q {\ldots}   商品k  商品l  商品o  商品p  商品r  商品s  商品t  商品v  商品x  商品y  
+         purchase\_month        {\ldots}                                                     
+         2019/01             0 {\ldots}     1    1    1    0    0    0    0    0    0    0  
+         2019/02             0 {\ldots}     0    0    0    0    0    1    1    1    0    0  
+         {\ldots}               {\ldots} {\ldots}   {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  
+         2019/06             0 {\ldots}     0    0    0    1    0    0    0    0    1    0  
+         2019/07             0 {\ldots}     0    0    1    0    2    0    0    0    0    0  
+         
+         [7 rows x 99 columns]
+\end{Verbatim}
+            
+    \paragraph{データの揺れが残ったままの集計や分析は全く意味のない結果になってしまう。やはりデータ加工が分析の前処理として重要である。}\label{ux30c7ux30fcux30bfux306eux63faux308cux304cux6b8bux3063ux305fux307eux307eux306eux96c6ux8a08ux3084ux5206ux6790ux306fux5168ux304fux610fux5473ux306eux306aux3044ux7d50ux679cux306bux306aux3063ux3066ux3057ux307eux3046ux3084ux306fux308aux30c7ux30fcux30bfux52a0ux5de5ux304cux5206ux6790ux306eux524dux51e6ux7406ux3068ux3057ux3066ux91cdux8981ux3067ux3042ux308b}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{ステップ3
+商品名の揺れを補正する}\label{ux30b9ux30c6ux30c3ux30d73-ux5546ux54c1ux540dux306eux63faux308cux3092ux88dcux6b63ux3059ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}まずは現状の確認（これも重要）}
+         \PY{c+c1}{\PYZsh{}売上げ履歴のitem\PYZus{}nameの重複を除外したユニークなデータ件数を出力する}
+         \PY{c+c1}{\PYZsh{}商品Sや商品s などがあるので、データ件数は99個になってしまう}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+99
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}大文字にそろえる　小文字→大文字に変換}
+         \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}全角スペースを除去する}
+         \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}半角スペースを除去する}
+         \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{　}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}item\PYZus{}nameを名前順にソートして見やすくする}
+         \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}            purchase\_date item\_name  item\_price customer\_name purchase\_month
+         0    2019-06-13 18:02:34       商品A       100.0         深井菜々美        2019/06
+         1748 2019-05-19 20:22:22       商品A       100.0          松川綾女        2019/05
+         223  2019-06-25 08:13:20       商品A       100.0           板橋隆        2019/06
+         1742 2019-06-13 16:03:17       商品A       100.0          小平陽子        2019/06
+         1738 2019-02-10 00:28:43       商品A       100.0          松田浩正        2019/02
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}99→26に整理できる}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['商品A' '商品S' '商品Z' '商品V' '商品O' '商品U' '商品L' '商品C' '商品I' '商品R' '商品X' '商品G'
+ '商品P' '商品Q' '商品Y' '商品N' '商品W' '商品E' '商品K' '商品B' '商品F' '商品D' '商品M' '商品H'
+ '商品T' '商品J']
+26
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{ステップ4
+欠損値を補完する}\label{ux30b9ux30c6ux30c3ux30d74-ux6b20ux640dux5024ux3092ux88dcux5b8cux3059ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}isnull()で欠損値の有無を確認できる}
+         \PY{c+c1}{\PYZsh{}列ごとに見たい場合はaxis=0}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} purchase\_date     False
+         item\_name         False
+         item\_price         True
+         customer\_name     False
+         purchase\_month    False
+         dtype: bool
+\end{Verbatim}
+            
+    item\_priceがTrueになっているので、この項目に欠損値が含まれていることを確認できる
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}Nahが含まれる行だけを表示する}
+         \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}            purchase\_date item\_name  item\_price customer\_name purchase\_month
+         1    2019-07-13 13:05:29       商品S         NaN          浅田賢二        2019/07
+         2    2019-05-11 19:42:07       商品A         NaN          南部慶二        2019/05
+         {\ldots}                  {\ldots}       {\ldots}         {\ldots}           {\ldots}            {\ldots}
+         2996 2019-03-29 11:14:05       商品Q         NaN          尾形小雁        2019/03
+         2997 2019-07-14 12:56:49       商品H         NaN          芦田博之        2019/07
+         
+         [387 rows x 5 columns]
+\end{Verbatim}
+            
+    欠損値を補完する
+今回のケースでは、欠損値は正しく記載された他の行から同じ商品の単価を調べ補完できる（集計期間中の商品単価の変動はないという前提条件）
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{}欠損値のある箇所を特定する}
+         \PY{c+c1}{\PYZsh{}flg\PYZus{}is\PYZus{}null変数には、欠損値がある行はTrue、欠損値がない行はFalseになったデータが格納される}
+         \PY{n}{flg\PYZus{}is\PYZus{}null} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}
+         \PY{n}{flg\PYZus{}is\PYZus{}null}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} 0       False
+         1        True
+                 {\ldots}  
+         2997     True
+         2998    False
+         Name: item\_price, Length: 2999, dtype: bool
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{}sales\PYZus{}dataの欠損値がない商品Sの場所と値段(item\PYZus{}price)を表示してる}
+         \PY{c+c1}{\PYZsh{}sales\PYZus{}data.loc[(flg\PYZus{}is\PYZus{}null == False) \PYZam{} (sales\PYZus{}data[\PYZsq{}item\PYZus{}name\PYZsq{}]==\PYZsq{}商品S\PYZsq{}),\PYZsq{}item\PYZus{}price\PYZsq{}]}
+         \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{flg\PYZus{}is\PYZus{}null} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{商品S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}\PYZti{}をつけるかつけないかでTrueとFalseを使い分ける。\PYZti{}がfalse}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} 5       1900.0
+         47      1900.0
+                  {\ldots}  
+         2958    1900.0
+         2971    1900.0
+         Name: item\_price, Length: 116, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{}flg\PYZus{}is\PYZus{}nullに格納されている「item\PYZus{}name」の列データから取り出した99個のユニークな商品名を対象にfor文をまわす}
+         \PY{c+c1}{\PYZsh{}unigue（）は抽出した商品名の重複をなくすために用いられる}
+         \PY{k}{for} \PY{n}{trg} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{flg\PYZus{}is\PYZus{}null}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}trgには欠損値がある商品名が入ってくる}
+             
+             \PY{n}{price} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{flg\PYZus{}is\PYZus{}null} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{trg}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} 
+             \PY{c+c1}{\PYZsh{}trgを用いて、同じ商品で金額が正しく記載されている行を.locで探し、その金額を取得}
+             \PY{c+c1}{\PYZsh{}\PYZti{}flg\PYZus{}is\PYZus{}nullの「〜」は否定演算子}
+             \PY{c+c1}{\PYZsh{}flg\PYZus{}is\PYZus{}nullはflg\PYZus{}is\PYZus{}null == Trueと同じ意味}
+             
+             \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{flg\PYZus{}is\PYZus{}null} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{trg}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{price}
+         
+         \PY{n}{sales\PYZus{}data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/tyl/.pyenv/versions/anaconda3-5.2.0/lib/python3.6/site-packages/pandas/core/indexing.py:189: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  self.\_setitem\_with\_indexer(indexer, value)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:}            purchase\_date item\_name  item\_price customer\_name purchase\_month
+         0    2019-06-13 18:02:34       商品A       100.0         深井菜々美        2019/06
+         1    2019-07-13 13:05:29       商品S      1900.0          浅田賢二        2019/07
+         {\ldots}                  {\ldots}       {\ldots}         {\ldots}           {\ldots}            {\ldots}
+         2997 2019-07-14 12:56:49       商品H       800.0          芦田博之        2019/07
+         2998 2019-07-21 00:31:36       商品D       400.0          石田郁恵        2019/07
+         
+         [2999 rows x 5 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{}欠損地が保管されたかどうかをチェック}
+         \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} purchase\_date     False
+         item\_name         False
+         item\_price        False
+         customer\_name     False
+         purchase\_month    False
+         dtype: bool
+\end{Verbatim}
+            
+    \subsubsection{データ検算}\label{ux30c7ux30fcux30bfux691cux7b97}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{}商品Aの価格が正しく保管されているかチェック}
+         \PY{c+c1}{\PYZsh{}全ての商品Aを確認し最大値を算出する}
+         \PY{n}{location} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{商品A}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{location}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} 0        True
+         1       False
+                 {\ldots}  
+         2997    False
+         2998    False
+         Name: item\_name, Length: 2999, dtype: bool
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{sales\PYZus{}data\PYZus{}A} \PY{o}{=} \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{location}\PY{p}{]}
+         \PY{n}{sales\PYZus{}data\PYZus{}A}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:}            purchase\_date item\_name  item\_price customer\_name purchase\_month
+         0    2019-06-13 18:02:34       商品A       100.0         深井菜々美        2019/06
+         2    2019-05-11 19:42:07       商品A       100.0          南部慶二        2019/05
+         {\ldots}                  {\ldots}       {\ldots}         {\ldots}           {\ldots}            {\ldots}
+         2951 2019-05-06 02:24:12       商品A       100.0          日比野徹        2019/05
+         2973 2019-07-13 21:38:11       商品A       100.0          大地礼子        2019/07
+         
+         [139 rows x 5 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{max\PYZus{}value} \PY{o}{=} \PY{n}{sales\PYZus{}data\PYZus{}A}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{n}{max\PYZus{}value}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} 100.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{min\PYZus{}value} \PY{o}{=} \PY{n}{sales\PYZus{}data\PYZus{}A}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         \PY{n}{min\PYZus{}value}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} 100.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{}sales\PYZus{}data.loc[\PYZsq{}item\PYZus{}name\PYZsq{} == \PYZsq{}商品A\PYZsq{}][\PYZsq{}item\PYZus{}price\PYZsq{}].max()}
+         \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}
+             \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{商品A}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{]}\PY{p}{[}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}同じ記述}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} 100.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{k}{for} \PY{n}{trg} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{trg}
+                  \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{の最大値は}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}
+                      \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}
+                          \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{trg}
+                      \PY{p}{]}\PY{p}{[}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+                  \PY{p}{)}
+                 \PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{trg}
+                  \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{の最小値は}\PY{l+s+s1}{\PYZsq{}}
+                  \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}
+                      \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}
+                          \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{trg}
+                      \PY{p}{]}\PY{p}{[}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{skipna} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+                  \PY{p}{)}
+                 \PY{p}{)}
+         \PY{c+c1}{\PYZsh{}skipnaはNaNデータを無視するかどうかを設定できる。Falseにした場合、最小値はNaNになる}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+商品Aの最大値は100.0
+商品Aの最小値は100.0
+商品Bの最大値は200.0
+商品Bの最小値は200.0
+商品Cの最大値は300.0
+商品Cの最小値は300.0
+商品Dの最大値は400.0
+商品Dの最小値は400.0
+商品Eの最大値は500.0
+商品Eの最小値は500.0
+商品Fの最大値は600.0
+商品Fの最小値は600.0
+商品Gの最大値は700.0
+商品Gの最小値は700.0
+商品Hの最大値は800.0
+商品Hの最小値は800.0
+商品Iの最大値は900.0
+商品Iの最小値は900.0
+商品Jの最大値は1000.0
+商品Jの最小値は1000.0
+商品Kの最大値は1100.0
+商品Kの最小値は1100.0
+商品Lの最大値は1200.0
+商品Lの最小値は1200.0
+商品Mの最大値は1300.0
+商品Mの最小値は1300.0
+商品Nの最大値は1400.0
+商品Nの最小値は1400.0
+商品Oの最大値は1500.0
+商品Oの最小値は1500.0
+商品Pの最大値は1600.0
+商品Pの最小値は1600.0
+商品Qの最大値は1700.0
+商品Qの最小値は1700.0
+商品Rの最大値は1800.0
+商品Rの最小値は1800.0
+商品Sの最大値は1900.0
+商品Sの最小値は1900.0
+商品Tの最大値は2000.0
+商品Tの最小値は2000.0
+商品Uの最大値は2100.0
+商品Uの最小値は2100.0
+商品Vの最大値は2200.0
+商品Vの最小値は2200.0
+商品Wの最大値は2300.0
+商品Wの最小値は2300.0
+商品Xの最大値は2400.0
+商品Xの最小値は2400.0
+商品Yの最大値は2500.0
+商品Yの最小値は2500.0
+商品Zの最大値は2600.0
+商品Zの最小値は2600.0
+
+    \end{Verbatim}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{ステップ5
+顧客名の揺れも補正する}\label{ux30b9ux30c6ux30c3ux30d75-ux9867ux5ba2ux540dux306eux63faux308cux3082ux88dcux6b63ux3059ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{sales\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} 0    深井菜々美
+         1     浅田賢二
+         2     南部慶二
+         3     麻生莉緒
+         4     平田鉄二
+         Name: customer\_name, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} 0     須賀ひとみ
+         1    岡田　 敏也
+         2      芳賀 希
+         3     荻野  愛
+         4     栗田 憲一
+         Name: 顧客名, dtype: object
+\end{Verbatim}
+            
+    \textbf{このままでは、売上げ履歴と顧客台帳を結合してもだたしく結合できない}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}半角・全角スペースを除去する}
+         \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{　}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:}            purchase\_date item\_name  item\_price customer\_name purchase\_month
+         0    2019-06-13 18:02:34       商品A       100.0         深井菜々美        2019/06
+         1748 2019-05-19 20:22:22       商品A       100.0          松川綾女        2019/05
+         223  2019-06-25 08:13:20       商品A       100.0           板橋隆        2019/06
+         1742 2019-06-13 16:03:17       商品A       100.0          小平陽子        2019/06
+         1738 2019-02-10 00:28:43       商品A       100.0          松田浩正        2019/02
+\end{Verbatim}
+            
+    \textbf{実際のデータの中には名前の誤変換などの複雑な揺れが存在することも多々ある。その場合はプログラムで補正することができないため、現場の運用スタッフにヒアリングし、地道に名寄せ作業を行う必要がある。}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{ステップ6
+日付の揺れも補正する}\label{ux30b9ux30c6ux30c3ux30d76-ux65e5ux4ed8ux306eux63faux308cux3082ux88dcux6b63ux3059ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} 0    2018/01/04
+         1         42782
+         2    2018/01/07
+         3         42872
+         4         43127
+         Name: 登録日, dtype: object
+\end{Verbatim}
+            
+    \textbf{登録日の列には「42782」のように日付でない数字がいくつか見られる。Excelデータに格納されたデータに書式が違うデータが混在することはよくある。}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{}日付を統一フォーマットに補正する前に状況把握}
+         \PY{c+c1}{\PYZsh{}str.isdigit()を用いて、顧客台帳の登録日が数値かどうかをチェックする　True・・・数値　False・・・数値ではない}
+         \PY{n}{flg\PYZus{}is\PYZus{}serial} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{flg\PYZus{}is\PYZus{}serial}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} 0      False
+         1       True
+                {\ldots}  
+         198    False
+         199    False
+         Name: 登録日, Length: 200, dtype: bool
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{}登録日が数値データになっている件数を確認する}
+         \PY{n}{flg\PYZus{}is\PYZus{}serial}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} 22
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{}日付を統一フォーマットに補正する}
+         \PY{n}{fromSerial} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}timedelta}\PY{p}{(}
+             \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{flg\PYZus{}is\PYZus{}serial}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+             \PY{n}{unit}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1900/01/01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}pd.to\PYZus{}datetimeを用いてフォーマットを変更}
+         \PY{n}{fromSerial}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} 1     2017-02-18
+         3     2017-05-19
+                  {\ldots}    
+         186   2018-07-15
+         192   2018-06-10
+         Name: 登録日, Length: 22, dtype: datetime64[ns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{}もともと日付だったデータも、書式統一のために処理する}
+         \PY{n}{fromString} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{flg\PYZus{}is\PYZus{}serial}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{fromString}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} 0     2018-01-04
+         2     2018-01-07
+                  {\ldots}    
+         198   2019-04-19
+         199   2019-04-23
+         Name: 登録日, Length: 178, dtype: datetime64[ns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{}数値から日付に補正したデータと、書式を変更したデータを結合しcustomer\PYZus{}data[\PYZsq{}登録日\PYZsq{}]データを更新する}
+         \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{fromSerial}\PY{p}{,} \PY{n}{fromString}\PY{p}{]}\PY{p}{)}
+         \PY{n}{customer\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:}        顧客名           かな  地域                         メールアドレス        登録日
+         0    須賀ひとみ       すが ひとみ  H市         suga\_hitomi@example.com 2018-01-04
+         1     岡田敏也      おかだ としや  E市       okada\_toshiya@example.com 2017-02-18
+         ..     {\ldots}          {\ldots}  ..                             {\ldots}        {\ldots}
+         198  大西隆之介  おおにし りゅうのすけ  H市  oonishi\_ryuunosuke@example.com 2019-04-19
+         199   福井美希       ふくい みき  D市         fukui\_miki1@example.com 2019-04-23
+         
+         [200 rows x 5 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{}データ検算 数値項目が残っていないかチェックする}
+         \PY{n}{flg\PYZus{}is\PYZus{}serial} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{flg\PYZus{}is\PYZus{}serial}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:} 0
+\end{Verbatim}
+            
+    \textbf{数値データ件数は「0件」となり、すべての数値データが日付に補正されたことが確認できた}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} 0     2018-01-04
+         1     2017-02-18
+                  {\ldots}    
+         198   2019-04-19
+         199   2019-04-23
+         Name: 登録日, Length: 200, dtype: datetime64[ns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{}登録日から登録年月を算出し、集計する}
+         \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録年月}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y/}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}dt.strftimeを用いて表示範囲を指定}
+         \PY{n}{customer\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録年月}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} 0      2018/01
+         1      2017/02
+                 {\ldots}   
+         198    2019/04
+         199    2019/04
+         Name: 登録年月, Length: 200, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{}登録年月ごとに顧客の数をカウント}
+         \PY{n}{rslt} \PY{o}{=} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録年月}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{rslt}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{customer\PYZus{}data}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+登録年月
+2017/01    15
+2017/02    11
+           ..
+2018/07    17
+2019/04     2
+Name: 顧客名, Length: 15, dtype: int64
+200
+
+    \end{Verbatim}
+
+    \paragraph{ステップ7
+顧客名を主軸に2つのデータを結合（ジョイン）する}\label{ux30b9ux30c6ux30c3ux30d77-ux9867ux5ba2ux540dux3092ux4e3bux8ef8ux306b2ux3064ux306eux30c7ux30fcux30bfux3092ux7d50ux5408ux30b8ux30e7ux30a4ux30f3ux3059ux308b}
+
+売上げ履歴と顧客台帳を結合し、集計のベースとなるデータを作成する
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{sales\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:}         purchase\_date item\_name  item\_price customer\_name purchase\_month
+         0 2019-06-13 18:02:34       商品A       100.0         深井菜々美        2019/06
+         1 2019-07-13 13:05:29       商品S      1900.0          浅田賢二        2019/07
+         2 2019-05-11 19:42:07       商品A       100.0          南部慶二        2019/05
+         3 2019-02-12 23:40:45       商品Z      2600.0          麻生莉緒        2019/02
+         4 2019-04-22 03:09:35       商品A       100.0          平田鉄二        2019/04
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{customer\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:}      顧客名        かな  地域                     メールアドレス        登録日     登録年月
+         0  須賀ひとみ    すが ひとみ  H市     suga\_hitomi@example.com 2018-01-04  2018/01
+         1   岡田敏也   おかだ としや  E市   okada\_toshiya@example.com 2017-02-18  2017/02
+         2    芳賀希    はが のぞみ  A市     haga\_nozomi@example.com 2018-01-07  2018/01
+         3    荻野愛    おぎの あい  F市        ogino\_ai@example.com 2017-05-19  2017/05
+         4   栗田憲一  くりた けんいち  E市  kurita\_kenichi@example.com 2018-01-29  2018/01
+\end{Verbatim}
+            
+    \textbf{共通する列名がない。}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{join\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}
+             \PY{n}{sales\PYZus{}data}\PY{p}{,}
+             \PY{n}{customer\PYZus{}data}\PY{p}{,}
+             \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{}left\PYZus{}onで指定した列と、right\PYZus{}onで指定した列を照合し、二つのデータフレームを結合する}
+             \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{join\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:}         purchase\_date item\_name  item\_price customer\_name purchase\_month  \textbackslash{}
+         0 2019-06-13 18:02:34       商品A       100.0         深井菜々美        2019/06   
+         1 2019-06-14 09:08:17       商品A       100.0         深井菜々美        2019/06   
+         2 2019-01-30 06:49:18       商品J      1000.0         深井菜々美        2019/01   
+         3 2019-07-30 09:17:51       商品X      2400.0         深井菜々美        2019/07   
+         4 2019-04-07 09:37:35       商品A       100.0         深井菜々美        2019/04   
+         
+              顧客名       かな  地域                   メールアドレス        登録日     登録年月  
+         0  深井菜々美  ふかい ななみ  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         1  深井菜々美  ふかい ななみ  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         2  深井菜々美  ふかい ななみ  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         3  深井菜々美  ふかい ななみ  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         4  深井菜々美  ふかい ななみ  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c+c1}{\PYZsh{}顧客名とcustomer\PYZus{}nameが被るため片方を除去する、今回はcustomer\PYZus{}name}
+         \PY{n}{join\PYZus{}data} \PY{o}{=} \PY{n}{join\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{join\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:}         purchase\_date item\_name  item\_price purchase\_month    顧客名       かな  \textbackslash{}
+         0 2019-06-13 18:02:34       商品A       100.0        2019/06  深井菜々美  ふかい ななみ   
+         1 2019-06-14 09:08:17       商品A       100.0        2019/06  深井菜々美  ふかい ななみ   
+         2 2019-01-30 06:49:18       商品J      1000.0        2019/01  深井菜々美  ふかい ななみ   
+         3 2019-07-30 09:17:51       商品X      2400.0        2019/07  深井菜々美  ふかい ななみ   
+         4 2019-04-07 09:37:35       商品A       100.0        2019/04  深井菜々美  ふかい ななみ   
+         
+            地域                   メールアドレス        登録日     登録年月  
+         0  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         1  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         2  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         3  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+         4  C市  fukai\_nanami@example.com 2017-01-26  2017/01  
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{ステップ8
+クレンジングしたデータを俯瞰する}\label{ux30b9ux30c6ux30c3ux30d78-ux30afux30ecux30f3ux30b8ux30f3ux30b0ux3057ux305fux30c7ux30fcux30bfux3092ux4fefux77b0ux3059ux308b}
+
+きれいになったデータをファイル出力（ダンプ）して、分析をする際は出力ファイルから読込分析を行うことで、クレンジングのやり直しを省略する
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{}ダンプする前に列を並び替え、より分かりやすくする。例えば、購入日付情報を隣り合わせにする}
+         \PY{n}{dump\PYZus{}data} \PY{o}{=} \PY{n}{join\PYZus{}data}\PY{p}{[}
+             \PY{p}{[}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{かな}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{地域}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{メールアドレス}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{登録日}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{]}
+         \PY{p}{]}
+         \PY{n}{dump\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:}         purchase\_date item\_name  item\_price purchase\_month    顧客名       かな  \textbackslash{}
+         0 2019-06-13 18:02:34       商品A       100.0        2019/06  深井菜々美  ふかい ななみ   
+         1 2019-06-14 09:08:17       商品A       100.0        2019/06  深井菜々美  ふかい ななみ   
+         2 2019-01-30 06:49:18       商品J      1000.0        2019/01  深井菜々美  ふかい ななみ   
+         3 2019-07-30 09:17:51       商品X      2400.0        2019/07  深井菜々美  ふかい ななみ   
+         4 2019-04-07 09:37:35       商品A       100.0        2019/04  深井菜々美  ふかい ななみ   
+         
+            地域                   メールアドレス        登録日  
+         0  C市  fukai\_nanami@example.com 2017-01-26  
+         1  C市  fukai\_nanami@example.com 2017-01-26  
+         2  C市  fukai\_nanami@example.com 2017-01-26  
+         3  C市  fukai\_nanami@example.com 2017-01-26  
+         4  C市  fukai\_nanami@example.com 2017-01-26  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{c+c1}{\PYZsh{}csvファイル「dump\PYZus{}data.csv」に出力する}
+         \PY{n}{dump\PYZus{}data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dump\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{ステップ9
+データを集計する}\label{ux30b9ux30c6ux30c3ux30d79-ux30c7ux30fcux30bfux3092ux96c6ux8a08ux3059ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{}さきほどダンプした「dump\PYZus{}data.csv」を読み込んでデータ集計の準備をする}
+         \PY{n}{import\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dump\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UTF\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{dump\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} 0    商品A
+         1    商品A
+         2    商品J
+         3    商品X
+         4    商品A
+         Name: item\_name, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{}purchase\PYZus{}monthを縦軸に、商品ごとの集計結果を表示する}
+         \PY{n}{byItem} \PY{o}{=} \PY{n}{import\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}
+             \PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{aggfunc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{}sizeは全要素数を表している}
+             \PY{n}{fill\PYZus{}value} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{p}{)}
+         \PY{n}{byItem}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} item\_name       商品A  商品B  商品C  商品D  商品E  商品F  商品G  商品H  商品I  商品J {\ldots}   商品Q  \textbackslash{}
+         purchase\_month                                                   {\ldots}         
+         2019/01          18   13   19   17   18   15   11   16   18   17 {\ldots}    17   
+         2019/02          19   14   26   21   16   14   14   17   12   14 {\ldots}    22   
+         {\ldots}             {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots} {\ldots}   {\ldots}   
+         2019/06          24   12   11   19   13   18   15   13   19   22 {\ldots}    15   
+         2019/07          20   20   17   17   12   17   19   19   19   23 {\ldots}    15   
+         
+         item\_name       商品R  商品S  商品T  商品U  商品V  商品W  商品X  商品Y  商品Z  
+         purchase\_month                                               
+         2019/01          21   20   17    7   22   13   14   10    0  
+         2019/02          22   22   23   19   22   24   16   11    1  
+         {\ldots}             {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  {\ldots}  
+         2019/06          16   21   12   18   20   17   15   13    0  
+         2019/07          19   23   21   13   28   16   18   12    0  
+         
+         [7 rows x 26 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{}purchase\PYZus{}monthを縦軸に、商品ごとの売上金額を集計する}
+         \PY{n}{byPrice} \PY{o}{=} \PY{n}{import\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}
+             \PY{n}{index} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{item\PYZus{}price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{aggfunc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{n}{fill\PYZus{}value} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{p}{)}
+         \PY{n}{byPrice}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} item\_name        商品A   商品B   商品C   商品D   商品E    商品F    商品G    商品H    商品I  \textbackslash{}
+         purchase\_month                                                             
+         2019/01         1800  2600  5700  6800  9000   9000   7700  12800  16200   
+         2019/02         1900  2800  7800  8400  8000   8400   9800  13600  10800   
+         {\ldots}              {\ldots}   {\ldots}   {\ldots}   {\ldots}   {\ldots}    {\ldots}    {\ldots}    {\ldots}    {\ldots}   
+         2019/06         2400  2400  3300  7600  6500  10800  10500  10400  17100   
+         2019/07         2000  4000  5100  6800  6000  10200  13300  15200  17100   
+         
+         item\_name         商品J  {\ldots}     商品Q    商品R    商品S    商品T    商品U    商品V    商品W  \textbackslash{}
+         purchase\_month         {\ldots}                                                     
+         2019/01         17000  {\ldots}   28900  37800  38000  34000  14700  48400  29900   
+         2019/02         14000  {\ldots}   37400  39600  41800  46000  39900  48400  55200   
+         {\ldots}               {\ldots}  {\ldots}     {\ldots}    {\ldots}    {\ldots}    {\ldots}    {\ldots}    {\ldots}    {\ldots}   
+         2019/06         22000  {\ldots}   25500  28800  39900  24000  37800  44000  39100   
+         2019/07         23000  {\ldots}   25500  34200  43700  42000  27300  61600  36800   
+         
+         item\_name         商品X    商品Y   商品Z  
+         purchase\_month                      
+         2019/01         33600  25000     0  
+         2019/02         38400  27500  2600  
+         {\ldots}               {\ldots}    {\ldots}   {\ldots}  
+         2019/06         36000  32500     0  
+         2019/07         43200  30000     0  
+         
+         [7 rows x 26 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{c+c1}{\PYZsh{}purchase\PYZus{}monthを縦軸に、各顧客の購入数を集計する}
+         \PY{n}{byCustomer} \PY{o}{=} \PY{n}{import\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}
+             \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{p}{)}
+         \PY{n}{byCustomer}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} 顧客名             さだ千佳子  中仁晶  中田美智子  丸山光臣  久保田倫子  亀井一徳  五十嵐春樹  井上桃子  井口寛治  \textbackslash{}
+         purchase\_month                                                            
+         2019/01             3    1      4     2      2     0      5     3     3   
+         2019/02             9    1      2     2      1     4      2     1     0   
+         {\ldots}               {\ldots}  {\ldots}    {\ldots}   {\ldots}    {\ldots}   {\ldots}    {\ldots}   {\ldots}   {\ldots}   
+         2019/06             1    3      0     4      1     1      1     2     2   
+         2019/07             3    0      3     2      5     3      5     2     5   
+         
+         顧客名             井川真悠子  {\ldots}   香椎優一  高原充則  高梨結衣  高沢美咲  高田さんま  鳥居広司  鶴岡薫  麻生莉緒  \textbackslash{}
+         purchase\_month         {\ldots}                                                    
+         2019/01             1  {\ldots}      0     1     1     1      5     2    0     2   
+         2019/02             4  {\ldots}      4     0     3     2      0     1    2     4   
+         {\ldots}               {\ldots}  {\ldots}    {\ldots}   {\ldots}   {\ldots}   {\ldots}    {\ldots}   {\ldots}  {\ldots}   {\ldots}   
+         2019/06             3  {\ldots}      7     3     0     2      1     0    2     1   
+         2019/07             5  {\ldots}      2     4     4     2      0     2    4     3   
+         
+         顧客名             黄川田博之  黒谷長利  
+         purchase\_month               
+         2019/01             2     5  
+         2019/02             0     1  
+         {\ldots}               {\ldots}   {\ldots}  
+         2019/06             2     4  
+         2019/07             4     1  
+         
+         [7 rows x 199 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{}purchase\PYZus{}monthを縦軸に、地域ごとの購入数を集計する}
+         \PY{n}{byRegion} \PY{o}{=} \PY{n}{import\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}
+             \PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{地域}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{p}{)}
+         \PY{n}{byRegion}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} 地域              A市  B市  C市  D市  E市  F市  G市  H市
+         purchase\_month                                
+         2019/01         59  55  72  34  49  57  49  42
+         2019/02         71  46  65  48  61  52  43  63
+         {\ldots}             ..  ..  ..  ..  ..  ..  ..  ..
+         2019/06         53  47  61  30  51  51  58  58
+         2019/07         76  53  61  42  54  64  47  54
+         
+         [7 rows x 8 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{customer\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:}        顧客名           かな  地域                         メールアドレス        登録日  \textbackslash{}
+         0    須賀ひとみ       すが ひとみ  H市         suga\_hitomi@example.com 2018-01-04   
+         1     岡田敏也      おかだ としや  E市       okada\_toshiya@example.com 2017-02-18   
+         ..     {\ldots}          {\ldots}  ..                             {\ldots}        {\ldots}   
+         198  大西隆之介  おおにし りゅうのすけ  H市  oonishi\_ryuunosuke@example.com 2019-04-19   
+         199   福井美希       ふくい みき  D市         fukui\_miki1@example.com 2019-04-23   
+         
+                 登録年月  
+         0    2018/01  
+         1    2017/02  
+         ..       {\ldots}  
+         198  2019/04  
+         199  2019/04  
+         
+         [200 rows x 6 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{sales\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:}            purchase\_date item\_name  item\_price customer\_name purchase\_month
+         0    2019-06-13 18:02:34       商品A       100.0         深井菜々美        2019/06
+         1    2019-07-13 13:05:29       商品S      1900.0          浅田賢二        2019/07
+         {\ldots}                  {\ldots}       {\ldots}         {\ldots}           {\ldots}            {\ldots}
+         2997 2019-07-14 12:56:49       商品H       800.0          芦田博之        2019/07
+         2998 2019-07-21 00:31:36       商品D       400.0          石田郁恵        2019/07
+         
+         [2999 rows x 5 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{}customer\PYZus{}dataを主としてsales\PYZus{}dataを結合し、集計期間で商品を購入していないユーザがいないかチェックする準備を行う}
+         \PY{n}{away\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(} 
+             \PY{n}{customer\PYZus{}data}\PY{p}{,} 
+             \PY{n}{sales\PYZus{}data}\PY{p}{,}
+             \PY{n}{left\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{顧客名}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{right\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{customer\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+         \PY{p}{)}
+         \PY{n}{away\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:}      顧客名      かな  地域                  メールアドレス        登録日     登録年月  \textbackslash{}
+         0  須賀ひとみ  すが ひとみ  H市  suga\_hitomi@example.com 2018-01-04  2018/01   
+         1  須賀ひとみ  すが ひとみ  H市  suga\_hitomi@example.com 2018-01-04  2018/01   
+         2  須賀ひとみ  すが ひとみ  H市  suga\_hitomi@example.com 2018-01-04  2018/01   
+         3  須賀ひとみ  すが ひとみ  H市  suga\_hitomi@example.com 2018-01-04  2018/01   
+         4  須賀ひとみ  すが ひとみ  H市  suga\_hitomi@example.com 2018-01-04  2018/01   
+         
+                 purchase\_date item\_name  item\_price customer\_name purchase\_month  
+         0 2019-02-24 01:07:56       商品C       300.0         須賀ひとみ        2019/02  
+         1 2019-05-08 15:42:01       商品P      1600.0         須賀ひとみ        2019/05  
+         2 2019-07-03 07:49:05       商品M      1300.0         須賀ひとみ        2019/07  
+         3 2019-01-02 13:52:15       商品L      1200.0         須賀ひとみ        2019/01  
+         4 2019-06-29 04:58:36       商品R      1800.0         須賀ひとみ        2019/06  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{}集計期間で商品を購入していないユーザがいないかチェックする}
+         \PY{n}{away\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purchase\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:} False
+\end{Verbatim}
+            
+    \section{END}\label{end}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
